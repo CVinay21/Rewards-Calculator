@@ -25,12 +25,15 @@ public class RewardsController {
     @Autowired
     RewardsBusService rewardsBusService;
 
+    //This method is used to handle single customer transaction update and calculates rewards earned from it
     @RequestMapping(path = "/postCustomerTransaction", method = RequestMethod.POST)
     public CustomerRewards postCustomerTransaction(@Valid @RequestBody CustomerRewards custRewards){
         custRewards.calculateRewardPoints();
         return custRewards;
     }
 
+    //This method is used to handle a list of customer transactions, calculates rewards earned for each
+    // and summarizes the rewards per customer
     @RequestMapping(path = "/postCustomerTransactionList", method = RequestMethod.POST)
     public List<CustomerMonthlyRewards> postCustomerTransaction(@Valid @RequestBody CustomerRewardsList custRewardsList){
         custRewardsList.getCustRewardsList().forEach(custRewards->
